@@ -11,7 +11,7 @@ namespace fomka_web.Helpers
         public static LoginInfo ExctractLoginInfo(this HttpCookieCollection cookies)
             => new LoginInfo()
             {
-                CustomerId = cookies?["custId"]?.Value,
+                UserId = Convert.ToInt32(cookies?["userId"]?.Value) ,
                 Username = cookies?["user"]?.Value,
                 Password = cookies?["pass"]?.Value
             };
