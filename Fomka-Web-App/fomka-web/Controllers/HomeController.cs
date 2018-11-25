@@ -82,5 +82,13 @@ namespace fomka_web.Controllers
 
             return View();
         }
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

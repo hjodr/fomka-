@@ -6,6 +6,11 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .d-inline {
+            
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,11 +23,24 @@
                 </button>
                 @Html.ActionLink("Віртуальна лабораторія ПІ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" style="display: inline-block !important;">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Головна", "Index", "Home")</li>
                     <li>@Html.ActionLink("Новини", "Index", "News")</li>
                     <li>@Html.ActionLink("Форум", "Index", "Forum")</li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse" style="display: inline-block !important; float: right;">
+                <ul class="nav navbar-nav">
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li><a>Привіт, @HttpContext.Current.User.Identity.Name</a></li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Увійти", "Login", "Home")</li>
+                    }
+                    <li>@Html.ActionLink("Вийти", "Logout", "Home")</li>
                 </ul>
             </div>
         </div>
