@@ -24,5 +24,19 @@ namespace fomka_web.BL
 
             return SequenceOfBlocks;
         }
+
+        public static float AnswerCorrectInPercent(List<BlockOfCode> answer, List<BlockOfCode> code)
+        {
+            ushort correct = 0;
+
+            if (answer.Count != code.Count)
+            return 0;
+
+            for (int i = 0; i < answer.Count; i++)
+                if (answer[i].BlockID == code[i].BlockID)
+                    correct++;
+
+            return (float) correct / answer.Count;
+        }
     }
 }
