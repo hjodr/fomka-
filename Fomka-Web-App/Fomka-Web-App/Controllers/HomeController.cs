@@ -15,13 +15,6 @@ namespace Fomka_Web_App.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
