@@ -1,4 +1,35 @@
-﻿@{
+﻿@model fomka_web.Models.MainVM
+@{
     ViewBag.Title = "Home Page";
 }
-<h2>Main page</h2>
+<div class="content">
+    <div class="side-menu">
+        @foreach (var task in Model.Tasks)
+        {
+            <div class="row mg-2">
+                <div class="card taskcard">
+                    <div class="card-header"><h2>@task.Title</h2></div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-5 col-lg-2">
+                                Рівень @task.DifficultyLevel.Title
+                            </div>
+                            <div class="col-sm-7">
+                                Мова @task.ProgrammingLanguage.Title
+                            </div>
+                        </div>
+                        <div class="row mg-2">
+                            <div class="taskInfo">
+                                Опис завдання, для якого в бд не знайшлось місця...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary"href="~/Tasks/Open?taskId=@task.Id">Відкрити Завдання</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
