@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 
 namespace fomka_web.Helpers
@@ -17,10 +18,36 @@ namespace fomka_web.Helpers
             };
     }
 
-    public class LoginInfo
+    public class LoginInfoWrapper
     {
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+    }
+
+    public class LoginInfo : IPrincipal
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+
+        public LoginInfo(string username)
+        {
+            this.Identity = new GenericIdentity(username);
+        }
+
+        public LoginInfo()
+            :this("defname")
+        {
+
+        }
+
+        public IIdentity Identity { get; private set; }
+
+        public bool IsInRole(string role)
+        {
+            return false;
+        }
+
     }
 }

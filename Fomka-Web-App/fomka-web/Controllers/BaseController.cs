@@ -10,14 +10,6 @@ namespace fomka_web.Controllers
 {
     public class BaseController : Controller
     {
-        // GET: Base
-        protected UserRepo UserRepo { get; set; }
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            base.OnActionExecuting(filterContext);
-            var loginInfo = Request.Cookies.ExctractLoginInfo();
-            UserRepo = new UserRepo(loginInfo);
-        }
     }
 }
