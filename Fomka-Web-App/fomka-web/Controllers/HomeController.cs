@@ -31,7 +31,7 @@ namespace fomka_web.Controllers
             //success
             Session["UserID"] = objUser.UserId;
             Session["UserName"] = objUser.Username;
-            return RedirectToAction("UserDashBoard");
+            return RedirectToAction("Index");
 
             //fail
             return View(objUser);
