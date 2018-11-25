@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fomka-web", "fomka-web\fomka-web.csproj", "{EB056A6C-C060-40AA-B0B2-F6914495CA24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{41517173-C081-415D-A652-374ED01D52FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EB056A6C-C060-40AA-B0B2-F6914495CA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB056A6C-C060-40AA-B0B2-F6914495CA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB056A6C-C060-40AA-B0B2-F6914495CA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41517173-C081-415D-A652-374ED01D52FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41517173-C081-415D-A652-374ED01D52FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41517173-C081-415D-A652-374ED01D52FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41517173-C081-415D-A652-374ED01D52FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
