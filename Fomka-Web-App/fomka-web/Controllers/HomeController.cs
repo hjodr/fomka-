@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using static fomka_web.Attributes.RoleAuthorizeAttribute;
 
 namespace fomka_web.Controllers
 {
@@ -18,41 +19,46 @@ namespace fomka_web.Controllers
 
         public ActionResult Index()
         {
+            //return RedirectToAction(nameof(Login));
             return View();
         }
 
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            var vm = new LoginInfoWrapper()
+            {
+                Username = "Bbrizhaty",
+                Password = "lolkekchebureK1"
+            };
+            return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginInfo objUser)
+        public ActionResult Login(LoginInfoWrapper objUser)
         {
+            if (!ModelState.IsValid)
+                return View(objUser);
 
-            //TODO:validation with ef 
-            var uData = new LoginInfoWrapper()
+            var dbUser = Context.Users.FirstOrDefault(u => u.Login == objUser.Username) ?? new User()
             {
-                Password = "SamplePass",
-                UserId = 100500,
-                Username = "SampleName"
+                Type = (int)AppUserType.Stundent,
+                Password = objUser.Password,
+                Login = objUser.Username
             };
 
-            var authTicket = new FormsAuthenticationTicket(1, "SampleName", DateTime.UtcNow, DateTime.UtcNow.AddMinutes(3), false, new JavaScriptSerializer().Serialize(uData));
+            objUser.Type = (AppUserType)dbUser.Type;
 
-            string encTicket = FormsAuthentication.Encrypt(authTicket);
-            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-            Response.Cookies.Add(faCookie);
+            if (dbUser == null || dbUser.Password != objUser.Password)
+            {
+                ModelState.AddModelError(nameof(LoginInfoWrapper.Username), "Wrong username of password");
+                return View(objUser);
+            }
 
-            //success
-            Session["UserID"] = objUser.UserId;
-            Session["UserName"] = objUser.Username;
-            return RedirectToAction("Index");
+            SetLoggedUserInfo(objUser);
 
-            //fail
-            return View(objUser);
+            return RedirectToAction(nameof(Index));
         }
 
         public ActionResult About()
@@ -62,7 +68,7 @@ namespace fomka_web.Controllers
             return View();
         }
 
-        [RoleAuthorize(UserType = new[] { "Type1", "Type2" })]
+        [RoleAuthorize(UserType = AppUserType.Lecturer )]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

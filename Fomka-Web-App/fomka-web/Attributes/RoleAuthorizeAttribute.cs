@@ -1,4 +1,5 @@
 ﻿using fomka_web.DAL;
+using fomka_web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace fomka_web.Attributes
 {
     public class RoleAuthorizeAttribute : AuthorizeAttribute
     {
-        public string[] UserType { get; set; }
+        public AppUserType UserType { get; set; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -20,16 +21,11 @@ namespace fomka_web.Attributes
                 return false;
             }
 
-            using (var context = new SEVL())
-            {
+            var usr = httpContext.User as LoginInfo;
+            if (usr == null)
+                return false;
 
-            }
-
-                //if (dbRole == null)
-                //    return false;
-
-                return true;
-            //return ApplicationRoles.HasFlag((RoleAccessPoint)dbRole.Role);
+            return UserType.HasFlag(usr.Type);
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -43,6 +39,13 @@ namespace fomka_web.Attributes
                 filterContext.Result = new RedirectToRouteResult(new
                     RouteValueDictionary(new { controller = "Error", action = "AccessDenied" }));
             }
+        }
+
+        // must coallate with UserType table Id's
+        public enum AppUserType
+        {
+            Stundent = 1,
+            Lecturer = 2
         }
     }
 }
