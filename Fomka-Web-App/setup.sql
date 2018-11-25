@@ -2,6 +2,10 @@
 
 GO
 
+use SEVL;
+
+GO
+
 CREATE TABLE [User] (
 	[Id] Integer NOT NULL identity(1,1),
 	[FirstName] Text NOT NULL,
