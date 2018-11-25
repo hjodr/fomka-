@@ -160,6 +160,7 @@
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="DAL\DifficultyLevel.cs" />
     <Compile Include="DAL\Error.cs" />
     <Compile Include="DAL\Group.cs" />
@@ -178,6 +179,7 @@
     </Compile>
     <Compile Include="Helpers\CookieExtractor.cs" />
     <Compile Include="Models\MainVM.cs" />
+    <Compile Include="Models\TaskVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +226,8 @@
     <Content Include="Views\Forum\index.cshtml" />
     <Content Include="Views\News\index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Tasks\index.cshtml" />
+    <Content Include="Views\Tasks\Open.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
