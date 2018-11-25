@@ -15,6 +15,11 @@ namespace fomka_web.Controllers
 {
     public class BaseController : Controller
     {
+        public LoginInfo GeLoginInfo()
+        {
+            return HttpContext.User as LoginInfo;
+        }
+
         protected virtual void SetLoggedUserInfo(LoginInfoWrapper loginInfoWrapper)
         {
             var authTicket = new FormsAuthenticationTicket(1, 

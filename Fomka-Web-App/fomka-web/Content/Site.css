@@ -41,3 +41,8 @@ textarea {
     font-size: 16px;
     
 }
+
+.codeblock{
+    width: 450px;
+    text-align: left;
+}

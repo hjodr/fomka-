@@ -23,6 +23,8 @@ namespace fomka_web.Controllers
 
         public ActionResult Index()
         {
+            if (GeLoginInfo() == null) return RedirectToAction("Login");
+            vm.Role = GeLoginInfo().Type;
             vm.Tasks = dbRepo.GeTasks();
 
             return View(vm);

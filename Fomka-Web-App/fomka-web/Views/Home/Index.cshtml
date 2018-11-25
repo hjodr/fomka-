@@ -1,4 +1,5 @@
-﻿@model fomka_web.Models.MainVM
+﻿@using fomka_web.Attributes
+@model fomka_web.Models.MainVM
 @{
     ViewBag.Title = "Home Page";
 }
@@ -26,7 +27,11 @@
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-primary"href="~/Tasks/Open?taskId=@task.Id">Відкрити Завдання</a>
-
+                        @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+                        {
+                            <a class="btn btn-primary"href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
+                            <a class="btn btn-danger"href="~/Tasks/Delete?taskId=@task.Id">Видалити Завдання</a>
+                        }
                     </div>
                 </div>
             </div>

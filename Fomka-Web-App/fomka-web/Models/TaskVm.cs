@@ -10,5 +10,8 @@ namespace fomka_web.Models
     {
         public Task Task { get; set; }
         public List<BlockOfCode> SequenceOfBlocks { get; set; } = new List<BlockOfCode>();
+        public List<BlockOfCode> SelectedBlocks { get; set; } = new List<BlockOfCode>();
+        public string selection;
+        public string blocks;
     }
 }

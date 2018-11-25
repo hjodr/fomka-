@@ -5,4 +5,62 @@
 
 <h2>Task #@Model.Task.Id</h2>
 
-<div></div>
+<div class="row">
+    <div class="col-lg-2">
+        <div class="row">
+            <h3>Завдання</h3>
+        </div>
+        <div class="row">
+            <h4>@Model.Task.Title</h4>
+        </div>
+        <br />
+        <div class="row">
+            <p>Мова програмування @Model.Task.ProgrammingLanguage.Title</p>
+        </div>
+        <div class="row">
+            <h3>Опис завдання</h3>
+        </div>
+        <div class="row">
+            <p> Тіпа опис завдання </p>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <h4>Розставте блоки в правильному порядку</h4>
+        @foreach (var block in Model.SelectedBlocks)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mg-2">
+                        <a class="btn btn-danger removeBlock codeblock" onclick="remove(@block.BlockID,this)">
+                            <pre>@block.Code</pre>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-5">
+        <h4>Доступні блоки:</h4>
+        @foreach (var block in Model.SequenceOfBlocks)
+        {
+            if (!block.selected)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mg-2">
+                            <a class="btn btn-success addBlock codeblock" value="Add" onclick="add(@block.BlockID, this)">
+                                <pre>@block.Code</pre>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @Html.HiddenFor(m => m.Task.Id, new { @id = "taskId" })
+        @Html.HiddenFor(m => m.selection, new { @id = "selection" })
+        @Html.HiddenFor(m => m.blocks, new { @id = "blocks" })
+
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/Tasks.js"></script>
