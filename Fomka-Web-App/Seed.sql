@@ -1,9 +1,9 @@
-﻿delete from UserTypes;
+﻿delete from UserType;
 
 GO
 
-set identity_insert UserTypes on
+set identity_insert UserType on
 
-insert into UserTypes (Id, Title) values (1, 'Student'), (2, 'Lecturer');
+insert into UserType (Id, Title) values (1, 'Student'), (2, 'Lecturer');
 
-set identity_insert UserTypes off
+set identity_insert UserType off
