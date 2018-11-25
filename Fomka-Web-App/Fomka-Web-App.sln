@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fomka-Web-App", "Fomka-Web-App\Fomka-Web-App.csproj", "{4416ACA7-FF1B-4DC5-966E-CD1540CCD61F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4416ACA7-FF1B-4DC5-966E-CD1540CCD61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4416ACA7-FF1B-4DC5-966E-CD1540CCD61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4416ACA7-FF1B-4DC5-966E-CD1540CCD61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4416ACA7-FF1B-4DC5-966E-CD1540CCD61F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E7A7A82-08C4-4E2D-9A08-2825D155FC5C}
+	EndGlobalSection
+EndGlobal
