@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fomka-web", "fomka-web\fomk
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbSetup", "DbSetup", "{F78BC3B8-F3D0-48F5-888A-921C8B2E2854}"
 	ProjectSection(SolutionItems) = preProject
+		Seed.sql = Seed.sql
 		setup.sql = setup.sql
 	EndProjectSection
 EndProject
