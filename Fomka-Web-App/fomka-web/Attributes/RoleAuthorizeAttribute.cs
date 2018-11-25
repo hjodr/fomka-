@@ -25,7 +25,7 @@ namespace fomka_web.Attributes
             if (usr == null)
                 return false;
 
-            return UserType.HasFlag(usr.Type);
+            return UserType.HasFlag(usr.Type) || usr.Type.HasFlag(AppUserType.Admin);
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -45,7 +45,8 @@ namespace fomka_web.Attributes
         public enum AppUserType
         {
             Stundent = 1,
-            Lecturer = 2
+            Lecturer = 2,
+            Admin = 4,
         }
     }
 }
