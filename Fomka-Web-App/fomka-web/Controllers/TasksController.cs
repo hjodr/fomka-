@@ -21,8 +21,16 @@ namespace fomka_web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Open(string taskId, string selection, string blocks)
+        public ActionResult Open(string taskId)
         {
+            string blocks = null;
+            var selection = "";
+            if (Request.Cookies["blocks"] != null)
+            {
+                selection = Uri.UnescapeDataString(Request.Cookies["selection"].Value);
+                blocks = Uri.UnescapeDataString(Request.Cookies["blocks"].Value);
+            }
+
             if (blocks == null) //if first time open task
             {
                 vm.Task = dbRepo.GeTaskById(Convert.ToInt32(taskId));
@@ -47,9 +55,10 @@ namespace fomka_web.Controllers
             }
         }
 
-        public ActionResult Select(string taskId, string selection, string blocks) { 
-
-            return RedirectToAction("Open",new{ taskId = taskId, selection = selection, blocks = blocks});
+        public ActionResult Select(string taskId)
+        {
+            
+            return RedirectToAction("Open",new{ taskId = taskId});
         }
     }
 }

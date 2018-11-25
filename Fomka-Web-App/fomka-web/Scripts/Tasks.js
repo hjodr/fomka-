@@ -31,5 +31,7 @@ function submitSelection() {
     var selection = $("#selection").val();
     var taskId = $("#taskId").val();
     var blocks = $("#blocks").val();
-    window.location.href = window.location.origin + '/Tasks/Select?taskId='+taskId+'&selection='+selection+'&blocks='+blocks;
+    Cookies.set('selection', selection);
+    Cookies.set('blocks', blocks);
+    window.location.href = window.location.origin + '/Tasks/Select?taskId='+taskId;
 }
