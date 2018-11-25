@@ -33,8 +33,8 @@ namespace fomka_web.Controllers
         {
             var vm = new LoginInfoWrapper()
             {
-                Username = "Bbrizhaty",
-                Password = "lolkekchebureK1"
+                //Username = "Bbrizhaty",
+                //Password = "lolkekchebureK1"
             };
             return View(vm);
         }
