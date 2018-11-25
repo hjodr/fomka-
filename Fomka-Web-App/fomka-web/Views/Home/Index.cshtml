@@ -1,4 +1,23 @@
-﻿@{
+﻿@model fomka_web.Models.MainVM
+@{
     ViewBag.Title = "Home Page";
 }
-<h2>Main page</h2>
+<div class="content">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="side-menu">
+                @foreach (var task in Model.Tasks)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            @task.Title
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-sm-9">
+
+        </div>
+    </div>
+</div>
