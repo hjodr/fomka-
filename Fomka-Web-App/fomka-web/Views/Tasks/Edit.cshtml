@@ -1,0 +1,49 @@
+﻿@model fomka_web.Models.TaskVm
+@{
+    ViewBag.Title = "Edit Task";
+}
+
+<h2>Редагувати завдання</h2>
+<div class="content">
+    @using (Html.BeginForm("EditTask", "Tasks", FormMethod.Post))
+    {
+        @Html.HiddenFor(m=>m.Task.Id)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Task.Title)
+            @Html.TextBoxFor(m => m.Task.Title, new { @class = "form-control" })
+            @Html.Label("lab", "Description")
+            @Html.TextAreaFor(m => m.Task.Description, new { @class = "form-control", @rows = "4"})
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm6 form-group">
+                    @Html.LabelFor(m => m.ProgrammingLanguages)
+                    @Html.DropDownListFor(m => m.Task.PLId, Model.ProgrammingLanguages, new { @class = "form-control" })
+                </div>
+                <div class="col-sm6 form-group">
+                    @Html.LabelFor(m => m.DifficultyLevels)
+                    @Html.DropDownListFor(m => m.Task.DifficultyLevelId, Model.DifficultyLevels, new { @class = "form-control" })
+                </div>
+            </div>
+            </div>
+        <div>
+
+            @Html.LabelFor(m => m.Task.Standard.StandardFile)
+            @Html.TextAreaFor(m => m.Task.Standard.StandardFile, new { @class = "form-control", @rows = "10", @cols = "50" })
+
+        </div>
+        <br/>
+        <div class="col-lg-4">
+            <div class="row mg2">
+                <input type="submit" class="btn btn-primary" value="Зберегти"/>
+                <a href="../Home/Index" class="btn btn-default">Відмінити</a>
+            </div>
+            
+        </div>
+        
+                                                                     
+    }
+</div>
+
+
+

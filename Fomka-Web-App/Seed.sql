@@ -4,7 +4,7 @@ GO
 
 set identity_insert UserType on
 
-insert into UserType (Id, Title) values (1, 'Student'), (2, 'Lecturer');
+insert into UserType (Id, Title) values (1, 'Student'), (2, 'Lecturer'), (4, 'admin');
 
 set identity_insert UserType off
 
@@ -35,3 +35,4 @@ values
 	(6, 'Super', 'admin', '', 1, 'email', dateadd(Y, -31, getutcdate()) , 'superadmin', 'superadmin', 4)
 
 set identity_insert [User] off
+

@@ -57,8 +57,49 @@ namespace fomka_web.Controllers
 
         public ActionResult Select(string taskId)
         {
-            
             return RedirectToAction("Open",new{ taskId = taskId});
+        }
+
+        public ActionResult Edit(string taskId)
+        {
+            vm.Task = dbRepo.GeTaskById(Convert.ToInt32(taskId));
+            var difficultyLevels = dbRepo.GetDifficultyLevels();
+            vm.DifficultyLevels = difficultyLevels.Select(d => new SelectListItem() {Text = d.Title, Value = d.Id.ToString()}).ToList();
+            var programmingLanguages = dbRepo.GetLanguages();
+            vm.ProgrammingLanguages = programmingLanguages.Select(d => new SelectListItem() { Text = d.Title, Value = d.Id.ToString() }).ToList();
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditTask(TaskVm vm)
+        {
+            dbRepo.SaveTask(vm.Task);
+            return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult Add()
+        {
+            vm.Task = new Task();
+            var difficultyLevels = dbRepo.GetDifficultyLevels();
+            vm.DifficultyLevels = difficultyLevels.Select(d => new SelectListItem() { Text = d.Title, Value = d.Id.ToString() }).ToList();
+            var programmingLanguages = dbRepo.GetLanguages();
+            vm.ProgrammingLanguages = programmingLanguages.Select(d => new SelectListItem() { Text = d.Title, Value = d.Id.ToString() }).ToList();
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddTask(TaskVm vm)
+        {
+            dbRepo.SaveTask(vm.Task);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Delete(string taskId)
+        {
+            dbRepo.DeleteTask(Convert.ToInt32(taskId));
+            return RedirectToAction("Index", "Home");
         }
     }
 }

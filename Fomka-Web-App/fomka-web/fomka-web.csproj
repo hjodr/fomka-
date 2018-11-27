@@ -235,6 +235,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Tasks\index.cshtml" />
     <Content Include="Views\Tasks\Open.cshtml" />
+    <Content Include="Views\Tasks\Edit.cshtml" />
+    <Content Include="Views\Tasks\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

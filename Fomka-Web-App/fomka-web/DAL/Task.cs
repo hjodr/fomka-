@@ -25,6 +25,8 @@ namespace fomka_web.DAL
 
         [StringLength(1000)]
         public string Title { get; set; }
+        [StringLength(2000)]
+        public string Description { get; set; }
 
         public virtual DifficultyLevel DifficultyLevel { get; set; }
 

@@ -58,7 +58,9 @@ CREATE TABLE [User] (
 	PLId int not null,
 	[StandardId] int not null,
 	DifficultyLevelId int not null,
-	Title varchar(1000) 
+	Title varchar(1000),
+	[Description] varchar(2000)
+
  )
 
  create table DifficultyLevel (
