@@ -21,6 +21,15 @@ namespace fomka_web.Domain
             }
         }
 
+        public List<User> GetStudents()
+        {
+            var context = new SEVL();
+            using (context)
+            {
+                return context.Users.Where(u=>u.Type==1).Include(u=>u.Marks).ToList();
+            }
+        }
+
         public Task GeTaskById(int taskId)
         {
             var context = new SEVL();

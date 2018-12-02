@@ -5,10 +5,15 @@
 }
 <div class="content">
     <div class="side-menu">
-        @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-        {
-            <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
-        }
+        <div class="row">
+            @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+            {
+                <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
+            }
+            <a class="btn btn-primary" href="~/Marks/Index">Успішність</a>
+        </div>
+        
+
         @foreach (var task in Model.Tasks)
         {
             <div class="row mg-2">
@@ -32,7 +37,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        @if (task.Marks.Select(m => m.UserId == Model.User.Id).Count() == 0)
+                        @if (!task.Marks.Any(m => m.UserId == Model.User.Id))
                         {
                             <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
                         }

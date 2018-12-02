@@ -163,6 +163,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="DAL\DifficultyLevel.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Models\BlockOfCode.cs" />
     <Compile Include="Helpers\CookieExtractor.cs" />
     <Compile Include="Models\MainVM.cs" />
+    <Compile Include="Models\MarksVm.cs" />
     <Compile Include="Models\TaskVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -239,6 +241,7 @@
     <Content Include="Views\Tasks\Edit.cshtml" />
     <Content Include="Views\Tasks\Add.cshtml" />
     <Content Include="Views\Tasks\Submit.cshtml" />
+    <Content Include="Views\Marks\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
