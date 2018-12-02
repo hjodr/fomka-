@@ -329,3 +329,4 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /Fomka-Web-App/UnitTestProject
+/Fomka-Web-App/fomka-web/App_Data/Migrations/migrationHistory.json

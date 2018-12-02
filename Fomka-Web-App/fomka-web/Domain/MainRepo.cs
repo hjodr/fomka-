@@ -17,7 +17,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).Include(t=>t.Marks).ToList();
+                return context.Tasks.Select(t => t).Include(t => t.DifficultyLevel).Include(t => t.ProgrammingLanguage).Include(t => t.Standard).Include(t => t.Marks).ToList();
             }
         }
 
@@ -26,7 +26,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.Users.Where(u=>u.Type==1).Include(u=>u.Marks).ToList();
+                return context.Users.Where(u => u.Type == 1).Include(u => u.Marks).ToList();
             }
         }
 
@@ -35,7 +35,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).Include(t=>t.Marks).SingleOrDefault(t=>t.Id==taskId);
+                return context.Tasks.Select(t => t).Include(t => t.DifficultyLevel).Include(t => t.ProgrammingLanguage).Include(t => t.Standard).Include(t => t.Marks).SingleOrDefault(t => t.Id == taskId);
             }
         }
 
@@ -53,7 +53,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.DifficultyLevels.Select(d=>d).ToList();
+                return context.DifficultyLevels.Select(d => d).ToList();
             }
         }
 
@@ -62,7 +62,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                if (task.Id!=0)
+                if (task.Id != 0)
                 {
                     var taskToEdit = GeTaskById(task.Id);
                     taskToEdit.Description = task.Description;
