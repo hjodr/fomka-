@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -16,25 +17,30 @@ namespace fomka_web.DAL
             _relativePath = relativePath;
             _registeredMigrationsFile = $"{relativePath}\\migrationHistory.json";
             if (File.Exists(_registeredMigrationsFile))
-                _appliedMigrations = File.ReadAllLines(_registeredMigrationsFile).ToList();
+                _appliedMigrations = JsonConvert.DeserializeObject<IEnumerable<string>>(File.ReadAllText(_registeredMigrationsFile)).ToList();
         }
 
         public void RunMigration(string migrationName)
         {
-            string filePath = $"{_relativePath}\\{migrationName}.sql";
-            if (!File.Exists(filePath))
-                throw new Exception("Migration not found");
+            try
+            {
+                string filePath = $"{_relativePath}\\{migrationName}.sql";
+                if (!File.Exists(filePath))
+                    throw new Exception("Migration not found");
 
-            if (_appliedMigrations.Any(m => m == migrationName))
-                return;
+                if (_appliedMigrations.Any(m => m == migrationName))
+                    return;
 
-            _dbContext.Database.ExecuteSqlCommand(File.ReadAllText(filePath));
-            _appliedMigrations.Add(migrationName);
+                _dbContext.Database.ExecuteSqlCommand(File.ReadAllText(filePath));
+                _appliedMigrations.Add(migrationName);
+            }
+            catch(Exception ex)
+            { }
         }
 
         public void SaveHistory()
         {
-            File.WriteAllLines(_registeredMigrationsFile, _appliedMigrations);
+            File.WriteAllText(_registeredMigrationsFile, JsonConvert.SerializeObject(_appliedMigrations));
         }
 
         private readonly DbContext _dbContext;

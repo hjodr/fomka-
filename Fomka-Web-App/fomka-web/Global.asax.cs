@@ -18,7 +18,8 @@ namespace fomka_web
         {
             using (var mngr = new MigrationManager(new SEVL(), Server.MapPath("~/App_Data/Migrations")))
             {
-                mngr.RunMigration("20180212_add_modules_for_task");
+                mngr.RunMigration("20181202_add_modules_for_task");
+                mngr.RunMigration("20181203_seed_modules");
             }
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
