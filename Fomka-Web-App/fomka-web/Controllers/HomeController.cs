@@ -50,20 +50,14 @@ namespace fomka_web.Controllers
             if (!ModelState.IsValid)
                 return View(objUser);
 
-            var dbUser = Context.Users.FirstOrDefault(u => u.Login == objUser.Username) ?? new User()
-            {
-                Type = (int)AppUserType.Stundent,
-                Password = objUser.Password,
-                Login = objUser.Username
-            };
-
-            objUser.Type = (AppUserType)dbUser.Type;
+            var dbUser = Context.Users.FirstOrDefault(u => u.Login == objUser.Username);
 
             if (dbUser == null || dbUser.Password != objUser.Password)
             {
                 ModelState.AddModelError(nameof(LoginInfoWrapper.Username), "Wrong username of password");
                 return View(objUser);
             }
+            objUser.Type = (AppUserType)dbUser.Type;
 
             SetLoggedUserInfo(objUser);
 
