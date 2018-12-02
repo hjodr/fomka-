@@ -27,6 +27,8 @@ namespace fomka_web.Controllers
             vm.Role = GeLoginInfo().Type;
             vm.Tasks = dbRepo.GeTasks();
 
+            vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+
             return View(vm);
         }
 

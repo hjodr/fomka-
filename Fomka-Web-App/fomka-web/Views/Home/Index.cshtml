@@ -32,7 +32,15 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id">Відкрити Завдання</a>
+                        @if (task.Marks.Select(m => m.UserId == Model.User.Id).Count() == 0)
+                        {
+                            <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
+                        }
+                        else
+                        {
+                            <label>Завдання здано. Ваша оцінка: @task.Marks.SingleOrDefault(m => m.UserId == Model.User.Id).Value.ToString("F3")</label>
+                        }
+
                         @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
                         {
                             <a class="btn btn-primary" href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
@@ -44,3 +52,5 @@
         }
     </div>
 </div>
+
+<script type="text/javascript" src="~/Scripts/CoockieCleaner.js"></script>

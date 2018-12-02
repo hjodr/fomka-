@@ -11,6 +11,7 @@ namespace fomka_web.Models
     {
         public List<Task> Tasks;
         public AppUserType Role;
+        public User User { get; set; }
         public List<int> SelectedItems;
     }
 }

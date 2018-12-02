@@ -33,5 +33,14 @@ function submitSelection() {
     var blocks = $("#blocks").val();
     Cookies.set('selection', selection);
     Cookies.set('blocks', blocks);
+    window.location.href = window.location.origin + '/Tasks/Select?taskId=' + taskId;
+}
+
+function submitTask() {
+    var selection = $("#selection").val();
+    var taskId = $("#taskId").val();
+    var blocks = $("#blocks").val();
+    Cookies.set('selection', selection);
+    Cookies.set('blocks', blocks);
     window.location.href = window.location.origin + '/Tasks/Select?taskId='+taskId;
 }

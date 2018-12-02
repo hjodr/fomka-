@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using fomka_web.DAL;
+using fomka_web.Helpers;
 
 namespace fomka_web.Domain
 {
@@ -16,7 +17,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).ToList();
+                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).Include(t=>t.Marks).ToList();
             }
         }
 
@@ -25,7 +26,7 @@ namespace fomka_web.Domain
             var context = new SEVL();
             using (context)
             {
-                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).SingleOrDefault(t=>t.Id==taskId);
+                return context.Tasks.Select(t=>t).Include(t=>t.DifficultyLevel).Include(t=>t.ProgrammingLanguage).Include(t=>t.Standard).Include(t=>t.Marks).SingleOrDefault(t=>t.Id==taskId);
             }
         }
 
@@ -89,6 +90,34 @@ namespace fomka_web.Domain
                 context.Tasks.Attach(task);
                 context.Tasks.Remove(task);
                 context.SaveChanges();
+            }
+        }
+
+        public void SaveMark(int taskId, float mark, int userId)
+        {
+            var context = new SEVL();
+            using (context)
+            {
+                var task = GeTaskById(taskId);
+
+                var NewMark = new Mark()
+                {
+                    TaskId = task.Id,
+                    UserId = userId,
+                    Value = mark
+                };
+                context.Marks.Add(NewMark);
+
+                context.SaveChanges();
+            }
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            var context = new SEVL();
+            using (context)
+            {
+                return context.Users.SingleOrDefault(u => u.Login == username);
             }
         }
     }
