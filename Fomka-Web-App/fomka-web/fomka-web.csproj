@@ -158,7 +158,6 @@
     <Compile Include="Attributes\RoleAuthorizeAttribute.cs" />
     <Compile Include="BL\BlockGenerator.cs" />
     <Compile Include="Common\AppSettings.cs" />
-    <Compile Include="Common\Defaults.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
@@ -167,10 +166,12 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="DAL\DifficultyLevel.cs" />
+    <Compile Include="DAL\Module.cs" />
     <Compile Include="DAL\Error.cs" />
     <Compile Include="DAL\Group.cs" />
     <Compile Include="DAL\Institute.cs" />
     <Compile Include="DAL\Mark.cs" />
+    <Compile Include="DAL\MigrationManager.cs" />
     <Compile Include="DAL\ProgrammingLanguage.cs" />
     <Compile Include="DAL\SEVL.cs" />
     <Compile Include="DAL\Standard.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Migrations\20180212_add_modules_for_task.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -243,9 +245,7 @@
     <Content Include="Views\Tasks\Submit.cshtml" />
     <Content Include="Views\Marks\index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

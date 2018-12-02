@@ -36,5 +36,8 @@ namespace fomka_web.DAL
         public virtual ProgrammingLanguage ProgrammingLanguage { get; set; }
 
         public virtual Standard Standard { get; set; }
+
+        public virtual Module Module { get; set; }
+        public int? ModuleId { get; set; }
     }
 }

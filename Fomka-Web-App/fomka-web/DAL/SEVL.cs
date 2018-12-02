@@ -14,6 +14,7 @@ namespace fomka_web.DAL
 
         public virtual DbSet<DifficultyLevel> DifficultyLevels { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
+        public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Institute> Institutes { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
@@ -39,6 +40,10 @@ namespace fomka_web.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<Error>()
+                .Property(e => e.Title)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Module>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
 
