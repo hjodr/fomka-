@@ -17,7 +17,10 @@ namespace fomka_web.DAL
             _relativePath = relativePath;
             _registeredMigrationsFile = $"{relativePath}\\migrationHistory.json";
             if (File.Exists(_registeredMigrationsFile))
-                _appliedMigrations = JsonConvert.DeserializeObject<IEnumerable<string>>(File.ReadAllText(_registeredMigrationsFile)).ToList();
+            {
+                string content = File.ReadAllText(_registeredMigrationsFile);
+                _appliedMigrations = JsonConvert.DeserializeObject<IEnumerable<string>>(String.IsNullOrEmpty(content) ? "[]" : content).ToList();
+            }
         }
 
         public void RunMigration(string migrationName)
