@@ -35,4 +35,3 @@ values
 	(6, 'Super', 'admin', '', 1, 'email', dateadd(Y, -31, getutcdate()) , 'superadmin', 'superadmin', 4)
 
 set identity_insert [User] off
-

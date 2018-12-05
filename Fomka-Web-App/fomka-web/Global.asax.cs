@@ -1,4 +1,5 @@
-﻿using fomka_web.Helpers;
+﻿using fomka_web.DAL;
+using fomka_web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace fomka_web
     {
         protected void Application_Start()
         {
+            using (var mngr = new MigrationManager(new SEVL(), Server.MapPath("~/App_Data/Migrations")))
+            {
+                mngr.RunMigration("20181202_add_modules_for_task");
+                mngr.RunMigration("20181203_seed_modules");
+            }
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

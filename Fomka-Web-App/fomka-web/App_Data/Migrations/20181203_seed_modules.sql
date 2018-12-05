@@ -1,0 +1,1 @@
+﻿insert into Module ([Title]) values (N'Фабричний метод'), (N'Будівельник')

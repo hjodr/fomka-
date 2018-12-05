@@ -16,23 +16,83 @@ using static fomka_web.Attributes.RoleAuthorizeAttribute;
 
 namespace fomka_web.Controllers
 {
+    [AuthorizeWithRedirect]
     public class HomeController : BaseController
     {
         private MainVM vm = new MainVM();
         private MainRepo dbRepo = new MainRepo();
 
-        public ActionResult Index()
+        public ActionResult Index(int? id = null)
         {
-            if (GeLoginInfo() == null) return RedirectToAction("Login");
             vm.Role = GeLoginInfo().Type;
-            vm.Tasks = dbRepo.GeTasks();
+
+            vm.DefaultModuleId = dbRepo.GetModules().FirstOrDefault()?.Id ?? default(Int32);
+            id = id ?? vm.DefaultModuleId;
+            var tasks = dbRepo
+                .GeTasks();
+            vm.Tasks = dbRepo
+                .GeTasks()
+                .Where(t => t.ModuleId == id)
+                .ToList();
 
             vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+
+            vm.ModulesTree = GetDefaultTree();
+
+            // use to select in left menu
 
             return View(vm);
         }
 
+        private TreeViewItem GetDefaultTree()
+        {
+            return new TreeViewItem("Програмна інженерігя")
+            {
+                SubItems = new List<TreeViewItem>()
+                {
+                    new TreeViewItem("Аналіз вимог"),
+                    new TreeViewItem("Проектування та моделювання")
+                    {
+                        SubItems = new List<TreeViewItem>()
+                        {
+                            //struct and arc
+                            new TreeViewItem("Структура і архітектура ПЗ")
+                            {
+                                SubItems = new List<TreeViewItem>()
+                                {
+                                    new TreeViewItem("Архітектурні структури"),
+                                    new TreeViewItem("Архітектурні стилі"),
+                                    new TreeViewItem("Шаблони проектування")
+                                    {
+                                        SubItems = new List<TreeViewItem>()
+                                        {
+                                            new TreeViewItem("Твірні шаблони")
+                                            {
+                                                SubItems = dbRepo
+                                                .GetModules()
+                                                .Select(m => new TreeViewItem(m.Id, m.Title))
+                                            },
+                                            new TreeViewItem("Поведінкові шаблони"),
+                                            new TreeViewItem("Структурні шаблони"),
+                                        }
+                                    },
+                                    new TreeViewItem("Сімейства програм")
+                                }
+                            },
+                            new TreeViewItem("Аналіз якості програмного дизайну"),
+                            new TreeViewItem("Нотації проектування ПЗ"),
+                            new TreeViewItem("Стратегії і методи проектування"),
+                        },
+                    },
+                            new TreeViewItem("Кодування"),
+                            new TreeViewItem("Тестування"),
+                            new TreeViewItem("Супровід")
+                }
+            };
+        }
+
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             var vm = new LoginInfoWrapper()
@@ -45,25 +105,20 @@ namespace fomka_web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Login(LoginInfoWrapper objUser)
         {
             if (!ModelState.IsValid)
                 return View(objUser);
 
-            var dbUser = Context.Users.FirstOrDefault(u => u.Login == objUser.Username) ?? new User()
-            {
-                Type = (int)AppUserType.Stundent,
-                Password = objUser.Password,
-                Login = objUser.Username
-            };
-
-            objUser.Type = (AppUserType)dbUser.Type;
+            var dbUser = Context.Users.FirstOrDefault(u => u.Login == objUser.Username);
 
             if (dbUser == null || dbUser.Password != objUser.Password)
             {
                 ModelState.AddModelError(nameof(LoginInfoWrapper.Username), "Wrong username of password");
                 return View(objUser);
             }
+            objUser.Type = (AppUserType)dbUser.Type;
 
             SetLoggedUserInfo(objUser);
 
@@ -77,7 +132,7 @@ namespace fomka_web.Controllers
             return View();
         }
 
-        [RoleAuthorize(UserType = AppUserType.Lecturer )]
+        [RoleAuthorize(UserType = AppUserType.Lecturer)]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
