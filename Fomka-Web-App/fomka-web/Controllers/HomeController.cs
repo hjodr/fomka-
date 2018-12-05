@@ -26,8 +26,8 @@ namespace fomka_web.Controllers
         {
             vm.Role = GeLoginInfo().Type;
 
-            vm.DefaultModuleId = dbRepo.GetModules().FirstOrDefault()?.Id ?? default(Int32);
-            id = id ?? vm.DefaultModuleId;
+            id = id ?? dbRepo.GetModules().FirstOrDefault()?.Id ?? default(Int32);
+            vm.OpenedModuleId = id.Value;
             var tasks = dbRepo
                 .GeTasks();
             vm.Tasks = dbRepo

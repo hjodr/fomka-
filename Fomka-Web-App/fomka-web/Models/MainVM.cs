@@ -15,6 +15,6 @@ namespace fomka_web.Models
         public List<int> SelectedItems;
         public TreeViewItem ModulesTree { get; set; }
 
-        public int DefaultModuleId { get; set; }
+        public int OpenedModuleId { get; set; }
     }
 }
