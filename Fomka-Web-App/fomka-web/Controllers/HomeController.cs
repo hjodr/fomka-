@@ -39,7 +39,7 @@ namespace fomka_web.Controllers
                     .ToList();
 
                 vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
-                vm.ModulesTree = GetDefaultTree();
+                vm.ModulesTree = GetDefaultTree(id.Value);
 
                 // use to select in left menu
 
@@ -50,7 +50,7 @@ namespace fomka_web.Controllers
                 vm.OpenedModuleId = id.Value;
                 vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
 
-                vm.ModulesTree = GetDefaultTree();
+                vm.ModulesTree = GetDefaultTree(id.Value);
 
                 // use to select in left menu
 
@@ -58,9 +58,9 @@ namespace fomka_web.Controllers
             }
         }
 
-        private TreeViewItem GetDefaultTree()
+        private TreeViewItem GetDefaultTree(int selectedId)
         {
-            return new TreeViewItem("Програмна інженерігя")
+            return new TreeViewItem("Програмна інженерія")
             {
                 SubItems = new List<TreeViewItem>()
                 {
@@ -84,7 +84,7 @@ namespace fomka_web.Controllers
                                             {
                                                 SubItems = dbRepo
                                                 .GetModules()
-                                                .Select(m => new TreeViewItem(m.Id, m.Title))
+                                                .Select(m => new TreeViewItem(m.Id, m.Title,(m.Id==selectedId)))
                                             },
                                             new TreeViewItem("Поведінкові шаблони"),
                                             new TreeViewItem("Структурні шаблони"),
