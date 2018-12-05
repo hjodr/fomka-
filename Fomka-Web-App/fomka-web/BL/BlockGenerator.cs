@@ -7,23 +7,37 @@ namespace fomka_web.BL
 {
     public class BlockGenerator
     {
-        private const ushort BlockSize = 5;
-
-        public static List<BlockOfCode> Code2Blocks(string code)
+        private static int GetBlockSize(int difficulty)
         {
+            switch (difficulty)
+            {
+                case 1:
+                    return 5;
+                case 2:
+                    return 4;
+                case 3:
+                    return 3;
+                default:
+                    return 5;
+            }
+        }
+
+        public static List<BlockOfCode> Code2Blocks(string code, int difficulty)
+        {
+            int blockSize = GetBlockSize(difficulty);
             var lines = code.Split('\n').Select(s => s + '\n');
 
-            var counter = BlockSize;
-            var blocks = lines.GroupBy(_ => counter++ / BlockSize);
+            var counter = blockSize;
+            var blocks = lines.GroupBy(_ => counter++ / blockSize);
 
-            var SequenceOfBlocks = new List<BlockOfCode>();
+            var sequenceOfBlocks = new List<BlockOfCode>();
 
             foreach (var block in blocks)
             {
-                SequenceOfBlocks.Add(new BlockOfCode(){BlockID = block.Key, Code = string.Join("", block)});
+                sequenceOfBlocks.Add(new BlockOfCode(){BlockID = block.Key, Code = string.Join("", block)});
             }
 
-            return SequenceOfBlocks;
+            return sequenceOfBlocks;
         }
 
         public static List<BlockOfCode> OrderBlocks(List<BlockOfCode> blocks, string order)

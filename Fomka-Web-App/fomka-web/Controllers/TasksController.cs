@@ -29,7 +29,7 @@ namespace fomka_web.Controllers
             var selection = "";
             if (mode == "open") {
                 vm.Task = dbRepo.GeTaskById(Convert.ToInt32(taskId));
-                vm.SequenceOfBlocks = BlockGenerator.RandomizeBlocks(BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile));
+                vm.SequenceOfBlocks = BlockGenerator.RandomizeBlocks(BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile, vm.Task.DifficultyLevelId));
                 vm.SelectedBlocks = new List<BlockOfCode>();
                 vm.blocks = BlockGenerator.GetOrder(vm.SequenceOfBlocks);
                 vm.selection = "";
@@ -45,7 +45,7 @@ namespace fomka_web.Controllers
 
                 vm.Task = dbRepo.GeTaskById(Convert.ToInt32(taskId));
 
-                var codeBlocks = BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile);
+                var codeBlocks = BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile, vm.Task.DifficultyLevelId);
                 vm.SelectedBlocks = BlockGenerator.OrderBlocks(codeBlocks, selection);
                 vm.SequenceOfBlocks = BlockGenerator.SetSelected(BlockGenerator.OrderBlocks(codeBlocks, blocks), vm.SelectedBlocks);
                 vm.selection = selection;
@@ -87,7 +87,7 @@ namespace fomka_web.Controllers
                     blocks = Uri.UnescapeDataString(Request.Cookies["blocks"].Value);
                 }
 
-                var codeBlocks = BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile);
+                var codeBlocks = BlockGenerator.Code2Blocks(vm.Task.Standard.StandardFile, vm.Task.DifficultyLevelId);
                 vm.SelectedBlocks = BlockGenerator.OrderBlocks(codeBlocks, selection);
                 vm.SequenceOfBlocks =
                     BlockGenerator.SetSelected(BlockGenerator.OrderBlocks(codeBlocks, blocks), vm.SelectedBlocks);
