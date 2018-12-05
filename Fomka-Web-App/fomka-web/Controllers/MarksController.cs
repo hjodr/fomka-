@@ -13,11 +13,14 @@ namespace fomka_web.Controllers
         private MarksVm vm = new MarksVm();
         private MainRepo dbRepo = new MainRepo();
 
-        public ActionResult Index()
+        public ActionResult Index(int? id = null)
         {
+            id = id ?? 0;
+            vm.ModuleId = id.Value;
+            if (id!=0) vm.SelectedModule = dbRepo.GetModules().SingleOrDefault(m => m.Id == id) ?? null;
             if (GeLoginInfo() == null) return RedirectToAction("Login");
             vm.Role = GeLoginInfo().Type;
-            vm.Tasks = dbRepo.GeTasks();
+            vm.Tasks = dbRepo.GeTasksByModule(id.Value);
             vm.Students = dbRepo.GetStudents();
 
             vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);

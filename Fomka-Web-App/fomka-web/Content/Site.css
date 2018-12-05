@@ -41,3 +41,39 @@
     width: 450px;
     text-align: left;
 }
+
+ul, #modules-list {
+    list-style-type: none;
+}
+
+#modules-list {
+    margin: 0;
+    padding: 0;
+}
+
+.caret {
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    width: auto;
+    height: auto;
+}
+
+.caret::before {
+    content: "\25B6";
+    color: black;
+    margin-right: 6px;
+}
+
+.caret-down::before {
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+    padding-left: 20px;
+}
+
+.active {
+    display: block;    
+}

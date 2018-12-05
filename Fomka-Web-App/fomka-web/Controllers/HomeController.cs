@@ -26,22 +26,36 @@ namespace fomka_web.Controllers
         {
             vm.Role = GeLoginInfo().Type;
 
-            id = id ?? dbRepo.GetModules().FirstOrDefault()?.Id ?? default(Int32);
-            vm.OpenedModuleId = id.Value;
-            var tasks = dbRepo
-                .GeTasks();
-            vm.Tasks = dbRepo
-                .GeTasks()
-                .Where(t => t.ModuleId == id)
-                .ToList();
+            id = id ?? 0;
+            if (id != 0)
+            {
+                vm.OpenedModuleId = id.Value;
+                vm.OpenedModule = dbRepo.GetModules().SingleOrDefault(m => m.Id == id);
+                var tasks = dbRepo
+                    .GeTasks();
+                vm.Tasks = dbRepo
+                    .GeTasks()
+                    .Where(t => t.ModuleId == id)
+                    .ToList();
 
-            vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+                vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+                vm.ModulesTree = GetDefaultTree();
 
-            vm.ModulesTree = GetDefaultTree();
+                // use to select in left menu
 
-            // use to select in left menu
+                return View(vm);
+            }
+            else
+            {
+                vm.OpenedModuleId = id.Value;
+                vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
 
-            return View(vm);
+                vm.ModulesTree = GetDefaultTree();
+
+                // use to select in left menu
+
+                return View(vm);
+            }
         }
 
         private TreeViewItem GetDefaultTree()
