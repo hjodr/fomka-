@@ -13,5 +13,8 @@ namespace fomka_web.Models
         public AppUserType Role;
         public User User { get; set; }
         public List<int> SelectedItems;
+        public TreeViewItem ModulesTree { get; set; }
+
+        public int DefaultModuleId { get; set; }
     }
 }

@@ -24,6 +24,10 @@
                     @Html.LabelFor(m => m.DifficultyLevels)
                     @Html.DropDownListFor(m => m.Task.DifficultyLevelId, Model.DifficultyLevels, new { @class = "form-control" })
                 </div>
+                <div class="col-sm6 form-group">
+                    @Html.LabelFor(m => m.Modules)
+                    @Html.DropDownListFor(m => m.Task.ModuleId, Model.Modules, new { @class = "form-control" })
+                </div>
             </div>
         </div>
         <div>

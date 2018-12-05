@@ -112,7 +112,7 @@ namespace fomka_web.Controllers
         public ActionResult EditTask(TaskVm vm)
         {
             dbRepo.SaveTask(vm.Task);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Home", new { id = vm.Task.ModuleId });
         }
 
         [RoleAuthorize(UserType = AppUserType.Lecturer)]
@@ -123,6 +123,11 @@ namespace fomka_web.Controllers
             vm.DifficultyLevels = difficultyLevels.Select(d => new SelectListItem() { Text = d.Title, Value = d.Id.ToString() }).ToList();
             var programmingLanguages = dbRepo.GetLanguages();
             vm.ProgrammingLanguages = programmingLanguages.Select(d => new SelectListItem() { Text = d.Title, Value = d.Id.ToString() }).ToList();
+            var modules = dbRepo.GetModules();
+            vm.Modules = dbRepo
+                .GetModules()
+                .Select(m => new SelectListItem() { Text = m.Title, Value = m.Id.ToString() }).ToList();
+
             return View(vm);
         }
 
@@ -131,7 +136,7 @@ namespace fomka_web.Controllers
         public ActionResult AddTask(TaskVm vm)
         {
             dbRepo.SaveTask(vm.Task);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { id = vm.Task.ModuleId });
         }
 
         [RoleAuthorize(UserType = AppUserType.Lecturer)]

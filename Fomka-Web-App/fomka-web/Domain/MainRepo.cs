@@ -70,6 +70,7 @@ namespace fomka_web.Domain
                     taskToEdit.PLId = task.PLId;
                     taskToEdit.DifficultyLevelId = task.DifficultyLevelId;
                     taskToEdit.Standard.StandardFile = task.Standard.StandardFile;
+                    taskToEdit.ModuleId = task.ModuleId;
                 }
                 else
                 {
@@ -82,7 +83,8 @@ namespace fomka_web.Domain
                         Standard = new Standard()
                         {
                             StandardFile = task.Standard.StandardFile
-                        }
+                        },
+                        ModuleId = task.ModuleId
                     };
                     context.Tasks.Add(newTask);
                 }
@@ -127,6 +129,17 @@ namespace fomka_web.Domain
             using (context)
             {
                 return context.Users.SingleOrDefault(u => u.Login == username);
+            }
+        }
+
+        public IEnumerable<Module> GetModules()
+        {
+            using (var context = new SEVL())
+            {
+                return context
+                    .Modules
+                    .AsNoTracking()
+                    .ToList();
             }
         }
     }

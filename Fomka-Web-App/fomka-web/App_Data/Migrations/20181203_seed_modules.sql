@@ -1,1 +1,1 @@
-﻿insert into Module ([Title]) values ('Фабричний метод'), ('Будівельник')
+﻿insert into Module ([Title]) values (N'Фабричний метод'), (N'Будівельник')

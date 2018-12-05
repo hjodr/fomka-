@@ -1,61 +1,121 @@
 ﻿@using fomka_web.Attributes
+@using fomka_web.Models
 @model fomka_web.Models.MainVM
 @{
     ViewBag.Title = "Home Page";
 }
+
+
+
+<style>
+    ul, #modules-list {
+        list-style-type: none;
+    }
+
+    #modules-list {
+        margin: 0;
+        padding: 0;
+    }
+
+    .caret {
+        cursor: pointer;
+        user-select: none;
+        border: none;
+        width: auto;
+    }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret-down::before {
+        transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+</style>
 <div class="content">
     <div class="side-menu">
         <div class="row">
-            @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-            {
-                <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
-            }
-            <a class="btn btn-primary" href="~/Marks/Index">Успішність</a>
-        </div>
-        
-
-        @foreach (var task in Model.Tasks)
-        {
-            <div class="row mg-2">
-                <div class="card taskcard">
-                    <div class="card-header">
-                        <h2>@task.Title</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-5 col-lg-2">
-                                Рівень @task.DifficultyLevel.Title
-                            </div>
-                            <div class="col-sm-7">
-                                Мова @task.ProgrammingLanguage.Title
-                            </div>
-                        </div>
-                        <div class="row mg-2">
-                            <div class="taskInfo">
-                                @task.Description
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        @if (!task.Marks.Any(m => m.UserId == Model.User.Id))
-                        {
-                            <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
-                        }
-                        else
-                        {
-                            <label>Завдання здано. Ваша оцінка: @task.Marks.SingleOrDefault(m => m.UserId == Model.User.Id).Value.ToString("F3")</label>
-                        }
-
-                        @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-                        {
-                            <a class="btn btn-primary" href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
-                            <a class="btn btn-danger" href="~/Tasks/Delete?taskId=@task.Id">Видалити Завдання</a>
-                        }
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <ul id="modules-list">
+                    @Html.RenderTree(Model.ModulesTree)
+                </ul>
             </div>
-        }
+            <div class="col-md-8">
+                <div class="row">
+                    @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+                    {
+                        <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
+                    }
+                    <a class="btn btn-primary" href="~/Marks/Index">Успішність</a>
+                </div>
+
+
+                @foreach (var task in Model.Tasks)
+                {
+                    <div class="row mg-2">
+                        <div class="card taskcard">
+                            <div class="card-header">
+                                <h2>@task.Title</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-5 col-lg-2">
+                                        Рівень @task.DifficultyLevel.Title
+                                    </div>
+                                    <div class="col-sm-7">
+                                        Мова @task.ProgrammingLanguage.Title
+                                    </div>
+                                </div>
+                                <div class="row mg-2">
+                                    <div class="taskInfo">
+                                        @task.Description
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                @if (!task.Marks.Any(m => m.UserId == Model.User.Id))
+                                {
+                                    <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
+                                }
+                                else
+                                {
+                                    <label>Завдання здано. Ваша оцінка: @task.Marks.SingleOrDefault(m => m.UserId == Model.User.Id).Value.ToString("F3")</label>
+                                }
+
+                                @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+                                {
+                                    <a class="btn btn-primary" href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
+                                    <a class="btn btn-danger" href="~/Tasks/Delete?taskId=@task.Id">Видалити Завдання</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript" src="~/Scripts/CoockieCleaner.js"></script>
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>

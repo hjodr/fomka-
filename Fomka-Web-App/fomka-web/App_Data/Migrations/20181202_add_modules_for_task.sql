@@ -1,7 +1,7 @@
 ﻿create table Module
 (
 	[Id] int not null identity (1,1),
-	[Title] varchar(500)
+	[Title] nvarchar(500)
 )
 
 alter table Module

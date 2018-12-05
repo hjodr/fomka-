@@ -17,6 +17,7 @@ namespace fomka_web.Models
 
         public List<SelectListItem> DifficultyLevels { get; set; }
         public List<SelectListItem> ProgrammingLanguages { get; set; }
+        public List<SelectListItem> Modules { get; set; }
 
         public string Answer { get; set; }
     }

@@ -155,6 +155,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\AuthorizeWithRedirect.cs" />
     <Compile Include="Attributes\RoleAuthorizeAttribute.cs" />
     <Compile Include="BL\BlockGenerator.cs" />
     <Compile Include="Common\AppSettings.cs" />
@@ -188,6 +189,8 @@
     <Compile Include="Models\MainVM.cs" />
     <Compile Include="Models\MarksVm.cs" />
     <Compile Include="Models\TaskVm.cs" />
+    <Compile Include="Models\TreeView.cs" />
+    <Compile Include="Models\TreeViewHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
