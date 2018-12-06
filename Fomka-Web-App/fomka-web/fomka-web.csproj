@@ -194,6 +194,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Migrations\20181206_alter_nullable_columns_Marks.sql" />
+    <Content Include="App_Data\Migrations\20181206_alter_nullable_columns.sql" />
     <Content Include="App_Data\Migrations\20181203_seed_modules.sql" />
     <Content Include="App_Data\Migrations\20181202_add_modules_for_task.sql" />
     <Content Include="Content\bootstrap-theme.css" />
