@@ -21,7 +21,7 @@ namespace fomka_web.DAL
 
         public int? StandardId { get; set; }
 
-        public int DifficultyLevelId { get; set; }
+        public int? DifficultyLevelId { get; set; }
 
         [StringLength(1000)]
         public string Title { get; set; }
