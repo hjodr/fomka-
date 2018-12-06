@@ -14,7 +14,7 @@ namespace fomka_web.DAL
         [StringLength(5000)]
         public string Description { get; set; }
 
-        public int TaskId { get; set; }
+        public int? TaskId { get; set; }
 
         public int UserId { get; set; }
 
