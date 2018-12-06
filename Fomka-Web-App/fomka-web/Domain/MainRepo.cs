@@ -80,6 +80,7 @@ namespace fomka_web.Domain
                     taskToEdit.DifficultyLevelId = task.DifficultyLevelId;
                     taskToEdit.Standard.StandardFile = task.Standard.StandardFile;
                     taskToEdit.ModuleId = task.ModuleId;
+                    context.Entry(taskToEdit.Standard).State = EntityState.Modified;
                 }
                 else
                 {

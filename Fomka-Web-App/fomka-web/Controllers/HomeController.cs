@@ -44,13 +44,16 @@ namespace fomka_web.Controllers
             }
             else
             {
-                vm.OpenedModuleId = id.Value;
+                vm.OpenedModule = dbRepo.GetModules().OrderBy(m => m.Id).FirstOrDefault();
+                vm.OpenedModuleId = vm.OpenedModule?.Id ?? id.Value;
                 vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
 
-                vm.ModulesTree = GetDefaultTree(id.Value);
-                //var item2open = 
-                (vm.ModulesTree.SubItems.Skip(1).FirstOrDefault() ?? vm.ModulesTree).Selected = true;
-                //vm.ModulesTree.SubItems.Skip(1).FirstOrDefault().Selected = true;
+                vm.Tasks = dbRepo
+                    .GeTasks()
+                    .Where(t => t.ModuleId == vm.OpenedModuleId)
+                    .ToList();
+
+                vm.ModulesTree = GetDefaultTree(vm.OpenedModuleId);
                 return View(vm);
             }
         }
