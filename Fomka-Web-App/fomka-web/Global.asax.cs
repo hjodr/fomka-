@@ -21,6 +21,7 @@ namespace fomka_web
                 mngr.RunMigration("20181202_add_modules_for_task");
                 mngr.RunMigration("20181203_seed_modules");
                 mngr.RunMigration("20181206_alter_nullable_columns");
+                mngr.RunMigration("20181206_alter_nullable_columns_Marks");
             }
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
