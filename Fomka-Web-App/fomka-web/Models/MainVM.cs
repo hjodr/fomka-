@@ -16,5 +16,6 @@ namespace fomka_web.Models
         public TreeViewItem ModulesTree { get; set; }
 
         public int OpenedModuleId { get; set; }
+        public Module OpenedModule { get; set; }
     }
 }

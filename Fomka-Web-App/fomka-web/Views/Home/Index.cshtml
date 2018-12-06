@@ -6,43 +6,6 @@
 }
 
 
-
-<style>
-    ul, #modules-list {
-        list-style-type: none;
-    }
-
-    #modules-list {
-        margin: 0;
-        padding: 0;
-    }
-
-    .caret {
-        cursor: pointer;
-        user-select: none;
-        border: none;
-        width: auto;
-    }
-
-        .caret::before {
-            content: "\25B6";
-            color: black;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-    .caret-down::before {
-        transform: rotate(90deg);
-    }
-
-    .nested {
-        display: none;
-    }
-
-    .active {
-        display: block;
-    }
-</style>
 <div class="content">
     <div class="side-menu">
         <div class="row">
@@ -52,54 +15,67 @@
                 </ul>
             </div>
             <div class="col-md-8">
-                <div class="row">
-                    @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-                    {
-                        <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
-                    }
-                    <a class="btn btn-primary" href="~/Marks/Index">Успішність</a>
-                </div>
-
-
-                @foreach (var task in Model.Tasks)
+                @if (Model.OpenedModuleId != 0)
                 {
-                    <div class="row mg-2">
-                        <div class="card taskcard">
-                            <div class="card-header">
-                                <h2>@task.Title</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-5 col-lg-2">
-                                        Рівень @task.DifficultyLevel.Title
-                                    </div>
-                                    <div class="col-sm-7">
-                                        Мова @task.ProgrammingLanguage.Title
-                                    </div>
-                                </div>
-                                <div class="row mg-2">
-                                    <div class="taskInfo">
-                                        @task.Description
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                @if (!task.Marks.Any(m => m.UserId == Model.User.Id))
-                                {
-                                    <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
-                                }
-                                else
-                                {
-                                    <label>Завдання здано. Ваша оцінка: @task.Marks.SingleOrDefault(m => m.UserId == Model.User.Id).Value.ToString("F3")</label>
-                                }
+                    <div class="row">
+                        <h2>Модуль: @Model.OpenedModule.Title</h2>
+                    </div>
+                    <div class="row">
+                        @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+                        {
+                            <a class="btn btn-primary" href="~/Tasks/Add">Створити Завдання</a>
+                        }
+                        <a class="btn btn-primary" href="~/Marks/Index/@Model.OpenedModuleId">Успішність</a>
+                    </div>
 
-                                @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-                                {
-                                    <a class="btn btn-primary" href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
-                                    <a class="btn btn-danger" href="~/Tasks/Delete?taskId=@task.Id">Видалити Завдання</a>
-                                }
+
+
+                    foreach (var task in Model.Tasks)
+                    {
+                        <div class="row mg-2">
+                            <div class="card taskcard">
+                                <div class="card-header">
+                                    <h2>@task.Title</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-5 col-lg-2">
+                                            Рівень @task.DifficultyLevel.Title
+                                        </div>
+                                        <div class="col-sm-7">
+                                            Мова @task.ProgrammingLanguage.Title
+                                        </div>
+                                    </div>
+                                    <div class="row mg-2">
+                                        <div class="taskInfo">
+                                            @task.Description
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    @if (!task.Marks.Any(m => m.UserId == Model.User.Id))
+                                    {
+                                        <a class="btn btn-primary" href="~/Tasks/Open?taskId=@task.Id&mode=open">Відкрити Завдання</a>
+                                    }
+                                    else
+                                    {
+                                        <label>Завдання здано. Ваша оцінка: @task.Marks.SingleOrDefault(m => m.UserId == Model.User.Id).Value.ToString("F3")</label>
+                                    }
+
+                                    @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+                                    {
+                                        <a class="btn btn-primary" href="~/Tasks/Edit?taskId=@task.Id">Редагувати Завдання</a>
+                                        <a class="btn btn-danger" href="~/Tasks/Delete?taskId=@task.Id">Видалити Завдання</a>
+                                    }
+                                </div>
                             </div>
                         </div>
+                    }
+                }
+                else
+                {
+                    <div class="row">
+                        <h2>Модуль не обрано</h2>
                     </div>
                 }
             </div>
@@ -118,4 +94,6 @@
             this.classList.toggle("caret-down");
         });
     }
+
+
 </script>

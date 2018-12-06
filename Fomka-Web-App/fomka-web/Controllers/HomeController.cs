@@ -26,27 +26,41 @@ namespace fomka_web.Controllers
         {
             vm.Role = GeLoginInfo().Type;
 
-            id = id ?? dbRepo.GetModules().FirstOrDefault()?.Id ?? default(Int32);
-            vm.OpenedModuleId = id.Value;
-            var tasks = dbRepo
-                .GeTasks();
-            vm.Tasks = dbRepo
-                .GeTasks()
-                .Where(t => t.ModuleId == id)
-                .ToList();
+            id = id ?? 0;
+            if (id != 0)
+            {
+                vm.OpenedModuleId = id.Value;
+                vm.OpenedModule = dbRepo.GetModules().SingleOrDefault(m => m.Id == id);
+                var tasks = dbRepo
+                    .GeTasks();
+                vm.Tasks = dbRepo
+                    .GeTasks()
+                    .Where(t => t.ModuleId == id)
+                    .ToList();
 
-            vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+                vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
+                vm.ModulesTree = GetDefaultTree(id.Value);
 
-            vm.ModulesTree = GetDefaultTree();
+                // use to select in left menu
 
-            // use to select in left menu
+                return View(vm);
+            }
+            else
+            {
+                vm.OpenedModuleId = id.Value;
+                vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
 
-            return View(vm);
+                vm.ModulesTree = GetDefaultTree(id.Value);
+
+                // use to select in left menu
+
+                return View(vm);
+            }
         }
 
-        private TreeViewItem GetDefaultTree()
+        private TreeViewItem GetDefaultTree(int selectedId)
         {
-            return new TreeViewItem("Програмна інженерігя")
+            return new TreeViewItem("Програмна інженерія")
             {
                 SubItems = new List<TreeViewItem>()
                 {
@@ -70,7 +84,7 @@ namespace fomka_web.Controllers
                                             {
                                                 SubItems = dbRepo
                                                 .GetModules()
-                                                .Select(m => new TreeViewItem(m.Id, m.Title))
+                                                .Select(m => new TreeViewItem(m.Id, m.Title,(m.Id==selectedId)))
                                             },
                                             new TreeViewItem("Поведінкові шаблони"),
                                             new TreeViewItem("Структурні шаблони"),

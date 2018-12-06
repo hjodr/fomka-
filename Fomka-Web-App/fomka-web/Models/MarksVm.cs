@@ -13,5 +13,7 @@ namespace fomka_web.Models
         public User User { get; set; }
         public List<Task> Tasks { get; set; }
         public List<User> Students { get; set; }
+        public int ModuleId { get; set; }
+        public Module SelectedModule { get; set; }
     }
 }

@@ -5,82 +5,95 @@
 }
 
 <div style="padding: 30px;">
-    @if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
-    {
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Студент</th>
-                    @foreach (var task in Model.Tasks)
-                    {
-                        <th scope="col">@task.Title</th>
-                    }
-                    <th>Сума</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var student in Model.Students)
-            {
-                <tr>
-                    <th scope="row">@student.FirstName @student.LastName</th>
-                    @foreach (var task in Model.Tasks)
-                    {
-                        if (student.Marks.Any(m => m.TaskId == task.Id))
-                        {
-                            <th>@student.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value</th>
-                        }
-                        else
-                        {
-                            <th>--</th>
-                        }
+@if (Model.ModuleId != 0)
+{
+    <div class="row">
+        <h2>Модуль: @Model.SelectedModule.Title</h2>
+    </div>
 
-                    }
-                    @{
-                        var sum = 0.0;
-                        foreach (var mark in student.Marks)
-                        {
-                            sum += mark.Value;
-                        }
-                    }
-                    <th>@sum</th>
-                </tr>
-            }
-            </tbody>
-        </table>
-                        }
-    else
-    {
-        var sum = 0.0;
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Завдання</th>
-                <th>Оцінка</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var task in Model.Tasks)
-            {
-                <tr>
-                    <th scope="row">@task.Title</th>
-                    @{
-                        var currentUser = Model.Students.SingleOrDefault(s => s.Id == Model.User.Id);
-                    }
-                    @if (currentUser.Marks.Any(m => m.TaskId == task.Id))
-                    {
-                        sum += @currentUser.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value;
-                        <th>@currentUser.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value</th>
-                    }
-                    else
-                    {
-                        <th>--</th>
-                    }
+    if (Model.Role == RoleAuthorizeAttribute.AppUserType.Lecturer)
+     {
+         <table class="table">
+             <thead class="thead-light">
+             <tr>
+                 <th scope="col">Студент</th>
+                 @foreach (var task in Model.Tasks)
+                 {
+                     <th scope="col">@task.Title</th>
+                 }
+                 <th>Сума</th>
+             </tr>
+             </thead>
+             <tbody>
+             @foreach (var student in Model.Students)
+             {
+                 <tr>
+                     <th scope="row">@student.FirstName @student.LastName</th>
+                     @foreach (var task in Model.Tasks)
+                     {
+                         if (student.Marks.Any(m => m.TaskId == task.Id))
+                         {
+                             <th>@student.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value</th>
+                         }
+                         else
+                         {
+                             <th>--</th>
+                         }
 
-                </tr>
-            }
-            </tbody>
-        </table>
-        <h3>Загальна сума балів: @sum</h3>
-    }
+                     }
+                     @{
+                         var sum = 0.0;
+                         foreach (var mark in student.Marks)
+                         {
+                             sum += mark.Value;
+                         }
+                     }
+                     <th>@sum</th>
+                 </tr>
+             }
+             </tbody>
+         </table>
+     }
+     else
+     {
+         var sum = 0.0;
+         <table class="table">
+             <thead class="thead-light">
+             <tr>
+                 <th scope="col">Завдання</th>
+                 <th>Оцінка</th>
+             </tr>
+             </thead>
+             <tbody>
+             @foreach (var task in Model.Tasks)
+             {
+                 <tr>
+                     <th scope="row">@task.Title</th>
+                     @{
+                         var currentUser = Model.Students.SingleOrDefault(s => s.Id == Model.User.Id);
+                     }
+                     @if (currentUser.Marks.Any(m => m.TaskId == task.Id))
+                     {
+                         sum += @currentUser.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value;
+                         <th>@currentUser.Marks.SingleOrDefault(m => m.TaskId == task.Id).Value</th>
+                     }
+                     else
+                     {
+                         <th>--</th>
+                     }
+
+                 </tr>
+             }
+             </tbody>
+         </table>
+         <h3>Загальна сума балів: @sum</h3>
+     }
+                         }
+else
+{
+    <div class="row">
+        <h2>Модуль не обрано</h2>
+    </div>
+}
 </div>
 

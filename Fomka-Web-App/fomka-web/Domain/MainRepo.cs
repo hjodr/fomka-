@@ -21,6 +21,15 @@ namespace fomka_web.Domain
             }
         }
 
+        public List<Task> GeTasksByModule(int moduleId)
+        {
+            var context = new SEVL();
+            using (context)
+            {
+                return context.Tasks.Where(t => t.ModuleId==moduleId).Include(t => t.DifficultyLevel).Include(t => t.ProgrammingLanguage).Include(t => t.Standard).Include(t => t.Marks).ToList();
+            }
+        }
+
         public List<User> GetStudents()
         {
             var context = new SEVL();

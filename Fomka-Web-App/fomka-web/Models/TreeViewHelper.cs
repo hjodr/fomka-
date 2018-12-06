@@ -33,7 +33,12 @@ namespace fomka_web.Models
             else
             {
                 if (model.Enabled)
-                    plain.Append($"<a href=\"/Home/Index/{model.Id}\">{model.Title}</a>");
+                    if (model.Selected)
+                        plain.Append($"<a class='selected' href=\"/Home/Index/{model.Id}\"><div class='bg-primary' style='padding-left: 10px;'>{model.Title}</div></a>");
+                    else
+                    {
+                        plain.Append($"<a href=\"/Home/Index/{model.Id}\">{model.Title}</a>");
+                    }
                 else
                     plain.Append($"<span>{model.Title}</span>");
             }
