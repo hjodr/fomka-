@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace fomka_web.Models
 {
@@ -24,6 +23,11 @@ namespace fomka_web.Models
             :this(-1, title, false)
         {
 
+        }
+
+        public bool IsOpened()
+        {
+            return Selected || SubItems.Any(s => s.IsOpened());
         }
     }
 }

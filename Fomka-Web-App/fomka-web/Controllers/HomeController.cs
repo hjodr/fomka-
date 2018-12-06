@@ -31,8 +31,7 @@ namespace fomka_web.Controllers
             {
                 vm.OpenedModuleId = id.Value;
                 vm.OpenedModule = dbRepo.GetModules().SingleOrDefault(m => m.Id == id);
-                var tasks = dbRepo
-                    .GeTasks();
+
                 vm.Tasks = dbRepo
                     .GeTasks()
                     .Where(t => t.ModuleId == id)
@@ -40,8 +39,6 @@ namespace fomka_web.Controllers
 
                 vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
                 vm.ModulesTree = GetDefaultTree(id.Value);
-
-                // use to select in left menu
 
                 return View(vm);
             }
@@ -51,9 +48,9 @@ namespace fomka_web.Controllers
                 vm.User = dbRepo.GetUserByUsername(GeLoginInfo().Username);
 
                 vm.ModulesTree = GetDefaultTree(id.Value);
-
-                // use to select in left menu
-
+                //var item2open = 
+                (vm.ModulesTree.SubItems.Skip(1).FirstOrDefault() ?? vm.ModulesTree).Selected = true;
+                //vm.ModulesTree.SubItems.Skip(1).FirstOrDefault().Selected = true;
                 return View(vm);
             }
         }

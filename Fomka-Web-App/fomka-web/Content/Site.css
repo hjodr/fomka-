@@ -66,14 +66,16 @@ li{
     height: auto;
 }
 
-.caret::before {
-    content: "\25B6";
-    color: black;
-    margin-right: 6px;
-}
+    .caret::before {
+        content: "\25B6";
+        color: black;
+        margin-right: 6px;
+        display: inline-block;
+    }
 
 .caret-down::before {
     transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
 }
 
 .nested {

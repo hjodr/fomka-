@@ -24,8 +24,8 @@ namespace fomka_web.Models
             plain.Append("<li>");
             if (model.HasCaret)
             {
-                plain.Append($"<span class=\"caret\">{model.Title}</span>");
-                plain.Append("<ul class=\"nested\">");
+                plain.Append($"<span class=\"caret {(model.IsOpened() ? "caret-down" : "")}\">{model.Title}</span>");
+                plain.Append($"<ul class=\"nested {(model.IsOpened() ? "active" : "")}\">");
                 foreach (var item in model.SubItems)
                     plain.Append(RenderRawString(item));
                 plain.Append("</ul>");
